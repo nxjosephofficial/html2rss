@@ -5,7 +5,7 @@
 	exit 1
 
 # You will want to change these variables to your needs.
-website="https://lukesmith.xyz"
+website="https://nxjoseph.com"
 rssfile="rss.xml"
 
 # In order to cleanly use sed on a multi-line file, we have to use `tr` to
@@ -19,7 +19,7 @@ replchar='^'
 # single byte character that isn't in the page like ~ or something.
 
 link="$website/$1"
-title="$(sed -n 's/<title>\(.*\)<\/title>/\1/Ip' "$1")"
+title="$(gsed -n 's/<title>\(.*\)<\/title>/\1/Ip' "$1")"
 
 # Check and see if this page has already been added to the RSS feed.
 if grep -q "<guid.*>$link</guid>" "$rssfile"; then
@@ -38,7 +38,7 @@ else
 
 	guid=$link
 	# Get the page body content, excluding the nav and footer.
-	content="$(tr '\n' $replchar < "$1" | sed "
+	content="$(tr '\n' $replchar < "$1" | gsed "
 	s/.*<body>//
 	s/<footer>.*<\/footer>//
 	s/<nav>.*<\/nav>//
@@ -46,7 +46,7 @@ else
 	" | tr -s $replchar '\n')"
 fi
 
-rssdate="$(LC_TIME=en_US date '+%a, %d %b %Y %H:%M:%S %z')"
+rssdate="$(LC_TIME=tr_TR date '+%a, %d %b %Y %H:%M:%S %z')"
 
 # Eh, I'm a brainlet and I'm not sure how to elegantly add in the content to
 # the RSS feed without first writing it out to a file. This is because if we
@@ -66,4 +66,4 @@ echo "
 </item>
 " > "$temp"
 
-sed -i "/<!-- LB -->/r $temp" "$rssfile"
+gsed -i "/<!-- LB -->/r $temp" "$rssfile"
