@@ -29,7 +29,7 @@ if grep -q "<guid.*>$link</guid>" "$rssfile"; then
 	# must be unique to validate an RSS feed. Even feed readers that follow
 	# GUIDs will still be lead to the same page with this.
 	guid="$link#$(date '+%y%m%d%H%M%S')"
-	title="$title (Updated)"
+	title="$title (Güncellendi)"
 	echo "Explain the nature of the update:"
 	read -r content
 	[ -z "$content" ] && content="New updates to $link"
