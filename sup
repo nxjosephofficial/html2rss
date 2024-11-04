@@ -5,8 +5,8 @@
 	exit 1
 
 # You will want to change these variables to your needs.
-website="https://nxjoseph.com"
-rssfile="rss.xml"
+website="https://$2"
+rssfile="$3"
 
 # In order to cleanly use sed on a multi-line file, we have to use `tr` to
 # convert newlines to a set character, then run sed, then reconvert the
@@ -29,7 +29,7 @@ if grep -q "<guid.*>$link</guid>" "$rssfile"; then
 	# must be unique to validate an RSS feed. Even feed readers that follow
 	# GUIDs will still be lead to the same page with this.
 	guid="$link#$(date '+%y%m%d%H%M%S')"
-	title="$title (Güncellendi)"
+	title="$title (Updated)"
 	echo "Explain the nature of the update:"
 	read -r content
 	[ -z "$content" ] && content="New updates to $link"
@@ -46,7 +46,7 @@ else
 	" | tr -s $replchar '\n')"
 fi
 
-rssdate="$(LC_TIME=tr_TR date '+%a, %d %b %Y %H:%M:%S %z')"
+rssdate="$(LC_TIME=en_US date '+%a, %d %b %Y %H:%M:%S %z')"
 
 # Eh, I'm a brainlet and I'm not sure how to elegantly add in the content to
 # the RSS feed without first writing it out to a file. This is because if we
