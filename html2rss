@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ ! -f "$1" ] &&
-	echo "Give \`sup\` a page which has been added/updated." &&
+	echo "Give \`html2rss\` a page which has been added/updated." &&
 	exit 1
 
 # You will want to change these variables to your needs.
