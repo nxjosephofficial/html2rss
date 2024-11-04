@@ -1,0 +1,34 @@
+.Dd November 4, 2024
+.Dt html2rss 8
+.Os
+.Sh NAME
+.Nm html2rss
+.Nd Create RSS feeds from HTML pages.
+.Sh SYNOPSIS
+.Nm html2rss
+.Op Fl d Ar domain
+.Op Fl h Ar html_page
+.Op Fl r Ar rss_feed_output
+.Sh DESCRIPTION
+The html2rss script generates an RSS feed from a specified HTML page on a given domain. This is useful for users who want to track updates on web pages that do not provide native RSS feeds.
+
+The script constructs the full URL from the provided domain and HTML page name, retrieves the content from a local file (the HTML page), and formats it into an RSS feed.
+
+.Sh OPTIONS
+.Bl -tag -width ".Fl r Ar rss_feed_output"
+.It Fl d Ar domain
+Specify the domain of the website (e.g., example.com).
+.It Fl h Ar html_page
+Specify the name of the local HTML page to convert (e.g., page.html).
+.It Fl r Ar rss_feed_output
+Specify the name of the output file for the generated RSS feed.
+.El
+
+.Sh EXAMPLES
+To create an RSS feed from a local HTML page:
+.Bd -literal -offset indent
+html2rss -d example.com -h page.html -r output.rss
+.Ed
+
+.Sh SEE ALSO
+.Xr gsed 1
