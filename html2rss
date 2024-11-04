@@ -1,11 +1,17 @@
 #!/bin/sh
 
-[ ! -f "$1" ] &&
-	echo "Give \`html2rss\` a page which has been added/updated." &&
+[ -z "$1" ] &&
+	echo "Give \`html2rss\` a website domain without http/s and slash." &&
 	exit 1
+[ ! -f "$2" ] &&
+	echo "Give \`html2rss\` a page which has been added/updated." &&
+	exit 2
+[ ! -f "$3" ] &&
+	echo "Give \`html2rss\` a rss feed file for output." &&
+	exit 3
 
 # You will want to change these variables to your needs.
-website="https://$2"
+website="https://$1"
 rssfile="$3"
 
 # In order to cleanly use sed on a multi-line file, we have to use `tr` to
@@ -18,8 +24,8 @@ replchar='^'
 # So if you have a page with ^ in it, you'll have to change this to another
 # single byte character that isn't in the page like ~ or something.
 
-link="$website/$1"
-title="$(gsed -n 's/<title>\(.*\)<\/title>/\1/Ip' "$1")"
+link="$website/$2"
+title="$(gsed -n 's/<title>\(.*\)<\/title>/\1/Ip' "$2")"
 
 # Check and see if this page has already been added to the RSS feed.
 if grep -q "<guid.*>$link</guid>" "$rssfile"; then
